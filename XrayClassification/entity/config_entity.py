@@ -25,6 +25,7 @@ class DataIngestionConfig:
 @dataclass
 class DataTransformationConfig:
     def __init__(self):
+
         self.color_jitter_transforms: dict={
             "brightness": BRIGHTNESS,
             "contrast": CONTRAST,
@@ -33,23 +34,30 @@ class DataTransformationConfig:
         }
 
         self.RESIZE: int = RESIZE
+
         self.CENTER_CROP: int = CENTER_CROP
+
         self.RANDOM_ROTATION = RANDOM_ROTATION
+
         self.normalize_transforms: dict = {
             "mean": NORMALIZE_LIST_1,
             "std": NORMALIZE_LIST_2,
         }
+
         self.data_loader_params: dict = {
             "batch_size": BATCH_SIZE,
             "shuffle": SHUFFLE,
             "pin_memory": PIN_MEMORY,
         }
+
         self.artifact_dir:str = os.path.join(
             ARTIFACT_DIR, TIMESTAMP, "data_transformation"
         )
+
         self.train_transforms_file: str = os.path.join(
             self.artifact_dir, TRAIN_TRANSFORMS_FILE
         )
+        
         self.test_transforms_file: str = os.path.join(
             self.artifact_dir, TEST_TRANSFORMS_FILE
         )
