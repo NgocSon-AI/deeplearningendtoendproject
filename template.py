@@ -29,7 +29,6 @@ list_of_files = [
     # constant
     f"{project_name}/constant/__init__.py",
     f"{project_name}/constant/training_pipeline/__init__.py",
-    f"{project_name}/constant/application.py",
     
     # entity
     f"{project_name}/entity/__init__.py",
