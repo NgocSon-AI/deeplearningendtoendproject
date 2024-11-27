@@ -11,8 +11,8 @@ seaborn
 bentoml == 1.0.25
 opencv-python
 torchsummary
-boto3
-mypy_boto3_s3
+# boto3
+# mypy_boto3_s3
 streamlit
 
 pytest==7.1.3
