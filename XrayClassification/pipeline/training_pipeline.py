@@ -3,17 +3,20 @@ import sys
 from XrayClassification.components.data_ingestion import DataIngestion
 from XrayClassification.components.data_transformation import DataTransformation
 from XrayClassification.components.model_training import ModelTrainer
+from XrayClassification.components.model_evaluation import ModelEvaluation
 
 from XrayClassification.entity.config_entity import(
     DataIngestionConfig,
     DataTransformationConfig,
-    ModelTrainerConfig
+    ModelTrainerConfig,
+    ModelEvaluationConfig,
 )
 
 from XrayClassification.entity.artifacts_entity import (
     DataIngestionArtifact,
     DataTransformationArtifact,
     ModelTrainerArtifact,
+    ModelEvaluationArtifact,
 )
 
 from XrayClassification.exception.exception import XRayException
@@ -24,6 +27,7 @@ class TrainPipeline:
         self.data_ingestion_config=DataIngestionConfig()
         self.data_transformation_config = DataTransformationConfig()
         self.model_trainer_config = ModelTrainerConfig()
+        self.model_evaluation_config = ModelEvaluationConfig()
 
 ################################## START INGESTION ####################################
 
@@ -73,7 +77,7 @@ class TrainPipeline:
             raise XRayException(e, sys)
 
 
-#################### START MODEL TRAINER ##################################################
+####################################### START MODEL TRAINER #######################################
 
     def start_model_trainer(
         self,
@@ -94,8 +98,28 @@ class TrainPipeline:
             raise XRayException(e, sys)
 
 
+##################################### START MODEL EVALUATION ##############################################
 
-#################### RUN ##################################################
+    def start_model_evaluation(
+        self,
+        data_transformation_artifact: DataTransformationArtifact,
+        model_trainer_artifact: ModelTrainerArtifact
+    ) -> ModelEvaluationArtifact:
+        logging.info("Entered the start_model_trainer method of TrainPipeline class")
+        try:
+            model_evaluation = ModelEvaluation(
+                data_transformation_artifact=data_transformation_artifact,
+                model_trainer_artifact=model_trainer_artifact,
+                model_evaluation_config=self.model_evaluation_config,
+            )
+            model_evaluation_artifact = model_evaluation.initiate_model_evaluation()
+
+            logging.info("Exited the start_model_trainer method of TrainPipeline class")
+            return model_evaluation_artifact
+        except Exception as e:
+            raise XRayException(e, sys)
+
+########################################## RUN ##################################################
 
     def run_pipeline(self) -> None:
         
@@ -104,6 +128,7 @@ class TrainPipeline:
             data_ingestion_artifact: DataIngestionArtifact = self.start_data_ingestion()
             data_transformation_artifact: DataTransformationArtifact = self.start_data_transformation(data_ingestion_artifact=data_ingestion_artifact)
             model_trainer_artifact: ModelTrainerArtifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
+            model_evaluation_artifact: ModelEvaluationArtifact = self.start_model_evaluation(data_transformation_artifact=data_transformation_artifact, model_trainer_artifact=model_trainer_artifact)
             logging.info("Ented the run_pipeline method of Training pipeline class")
             
         except Exception as e:
