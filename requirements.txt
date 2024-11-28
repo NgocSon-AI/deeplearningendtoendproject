@@ -1,8 +1,10 @@
-bentoml
+bentoml == 1.0.25
 torchvision
-joblib
-tqdm
-pip-chill
-wincertstore
-
+joblib == 1.2.0
+tqdm== 4.64.1
+pip-chill == 1.0.1
+wincertstore == 0.2
+boto3
+mypy_boto3_s3
+streamlit
 -e .
