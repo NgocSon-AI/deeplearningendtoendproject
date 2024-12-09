@@ -53,8 +53,8 @@ list_of_files = [
 
     #"template/index.html",
     ".gitignore",
-    "test/unittest/__init__.py",
-    "test/integrationtest/__init__.py",
+    # "test/unittest/__init__.py",
+    # "test/integrationtest/__init__.py",
     #"app.py",
     "Dockerfile",
     "requirements.txt",

@@ -1,10 +1,10 @@
-service: "XrayClassification.ml.model.model_service:svc"
+name: "xray_classification_model"
+service: "service.py:service"
 labels:
     owner: sun-ai
     stage: dev
 include:
-    - "XrayClassification/ml/model/model_service.py"
-    - "XrayClassification/constant/training_pipeline/__init__.py"
+    - "*.py"
 python:
     packages:
         - torch

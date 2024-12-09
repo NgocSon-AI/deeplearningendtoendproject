@@ -12,10 +12,10 @@ bento_model = bentoml.pytorch.get(BENTOML_MODEL_NAME)
 
 runner = bento_model.to_runner()
 
-svc = bentoml.Service(name=BENTOML_SERVICE_NAME, runners=[runner])
+service = bentoml.Service(name=BENTOML_SERVICE_NAME, runners=[runner])
 
 
-@svc.api(input=Image(allowed_mime_types=["image/jpeg"]), output=Text())
+@service.api(input=Image(allowed_mime_types=["image/jpeg"]), output=Text())
 async def predict(img):
     b = io.BytesIO()
 
