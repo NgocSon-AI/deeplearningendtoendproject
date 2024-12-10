@@ -2,7 +2,7 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from XrayClassification.cloud_storage.s3_ops import S3Operation
+from XrayClassification.cloud_storage.s3_operations import S3Operation
 from XrayClassification.entity.artifacts_entity import DataIngestionArtifact
 from XrayClassification.entity.config_entity import DataIngestionConfig
 from XrayClassification.exception.exception import XRayException
